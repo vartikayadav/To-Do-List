@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 style="text-decoration:underline;">My Todo-List </h1>
+
+<form class=""  action="{% url 'add' %}" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" name="" value="Click to add">
+</form><br>
+<!-- <a href="{% url 'deletecomplete' %}"><button type="submit" name="button">Delete completed </button></a> -->
+<!-- <a href="{% url 'deleteall' %}"><button type="submit" name="button">Delete all</button></a> -->
+<a href="{% url 'deletecomplete' %}"><button type="submit" name="button">Delete completed </button></a>&nbsp&nbsp
+<a href="{% url 'deleteall' %}"><button type="submit" name="button">Delete All </button></a><br>
+{% for i in object %}
+{% if i.complete %}
+<div style="text-decoration:line-through;color:black;" >
+
+{{ i.text }}
+</div>
+{% else %}
+
+  <a style="color:black;" href="{% url 'completed' i.id %}">{{ i.text }}</a><br>
+{% endif %}
+
+{% endfor %}
+{% endblock %}
